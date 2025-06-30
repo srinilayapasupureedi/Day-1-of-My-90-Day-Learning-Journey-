@@ -1,0 +1,32 @@
+{
+  "name": "react-journey",
+  "version": "1.0.0",
+  "description": "very excited to learn more stuff further..its just the begining",
+  "scripts": {
+    "start": "parcel index.html",
+    "build":"parcel build index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srinilayapasupureedi/React-Journey.git"
+  },
+  "keywords": [
+    "React",
+    "journey",
+    "love"
+  ],
+  "author": "srinilaya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/srinilayapasupureedi/React-Journey/issues"
+  },
+  "homepage": "https://github.com/srinilayapasupureedi/React-Journey#readme",
+  "devDependencies": {
+    "parcel": "^2.15.2"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
