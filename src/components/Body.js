@@ -3,12 +3,14 @@ import { RestroCard } from './RestroCard';
 import  Shimmer  from './Shimmer';
 import ResturantMenu  from './ResturantMenu';
 import { Link } from 'react-router-dom';
+import useOnlineStatus from '../utils/useOnlineStatus';
 
 export const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurants,setfilteredResturants]=useState([]);
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  
 
   useEffect(() => {
     fetchData();
@@ -33,7 +35,11 @@ export const Body = () => {
       console.error("Error fetching data:", error);
     }
   };
-  
+  const onlineStatus=useOnlineStatus();
+  if(onlineStatus===false)
+  {
+    return <h1>Looks like you are offline!Check your connection please</h1>;
+  }
 
   return listOfRestaurants.length===0?<Shimmer/>:(
     <div className='body-container'>
