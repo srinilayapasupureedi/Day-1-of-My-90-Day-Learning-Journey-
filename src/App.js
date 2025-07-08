@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom/client';
 import { Header } from './components/Header';
 import { Body } from './components/Body';
 import { createBrowserRouter,RouterProvider,Outlet } from 'react-router-dom';
-import About from './components/About';
 import Contact from './components/Contact';
 import Error from './components/Error';
 import ResturantMenu from './components/ResturantMenu';
+import {lazy,  Suspense} from 'react';
 
 //food devlivery app
 //step-1 planning before coding
@@ -34,6 +34,8 @@ import ResturantMenu from './components/ResturantMenu';
 
 */
 
+const Grocery = lazy(() => import('./components/Grocery'));
+const About= lazy(() => import('./components/About'));
 
 
 const AppLayout=()=>{
@@ -55,11 +57,15 @@ const appRouter=createBrowserRouter([
         },
         {
         path:"/about",
-        element:<About/>
+        element:<Suspense fallback={<h1>Loading....</h1>}><About/></Suspense>
         },
         {
         path:"/contact",
         element:<Contact/>
+        },
+        {
+        path:"/grocery",
+        element:<Suspense fallback="Loading...."><Grocery/></Suspense>
         },
         {
           path:"/restaurants/:resId",
