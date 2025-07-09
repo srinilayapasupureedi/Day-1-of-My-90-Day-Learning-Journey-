@@ -2,6 +2,7 @@ import { useState, useEffect} from "react";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu"; 
+import ResturantCategory from "./ResturantCategory";
 const ResturantMenu=()=>{
   const {resId}=useParams();
   const resInfo=useRestaurantMenu(resId);
@@ -9,18 +10,22 @@ const ResturantMenu=()=>{
     return <Shimmer/>;
   const {name,cuisines,cloudinaryImageId,costForTwo}=resInfo?.cards[2]?.card?.card?.info||{};
   const {itemCards}=resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1].card?.card||{};
+  console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards)
+  const categories=resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+   (c)=>c.card?.card?.['@type']===
+    ("type.googleapis.com/swiggy.presentation.food.v2.ItemCategory")
+  );
+  console.log(categories);
   
  
 
 
   return(
-      <div className="menu">
-        <h1>{name}</h1> 
-        <h2>{cuisines.join(",")}</h2>
-        <h3>{costForTwo}</h3> 
-        <ul>
-          {itemCards.map(item=><li key={item.card.info.id}>{item.card.info.name}-{"RS"}-{item.card.info.price/100||item.card.info.defaultPrice/100}</li>)}
-        </ul>
+      <div className="text-center m-4">
+        <h1 className="font-bold">{name}</h1> 
+        <h2>{cuisines.join(",")}-{costForTwo/100}</h2> 
+        {categories.map((category)=>(<ResturantCategory data={category.card.card}
+         key={category.card.card.title}/>))};
         </div>
   );
 };
