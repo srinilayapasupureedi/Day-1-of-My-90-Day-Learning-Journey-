@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { RestroCard } from './RestroCard';
+import { RestroCard ,willPromotedLabel} from './RestroCard';
 import  Shimmer  from './Shimmer';
 import ResturantMenu  from './ResturantMenu';
 import { Link } from 'react-router-dom';
@@ -41,13 +41,16 @@ export const Body = () => {
   {
     return <h1>Looks like you are offline!Check your connection please</h1>;
   }
+  const ResturantCardPromoted=willPromotedLabel(RestroCard);
+  console.log(ResturantCardPromoted);
 
   return listOfRestaurants.length===0?<Shimmer/>:(
     <div className='body-container'>
-      <div className='search-container'>
-        <input type="text" placeholder="Search..." value={searchValue}
+      <div className='flex p-4 m-4'>
+        <input  className="border border-solid border-black rounded-b-[2px]"type="text" placeholder="Find Resturants" value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}/>
-        <button className='search-button'
+
+        <button className='bg-gray-400 px-4 rounded-b-[2px] text-white'
         onClick={() => {
             const filteredRestaurants = allRestaurants.filter(
               restaurant => restaurant.info?.name.toLowerCase().includes(searchValue.toLowerCase())
@@ -55,8 +58,9 @@ export const Body = () => {
             setfilteredResturants(filteredRestaurants);
           }
         }>Search</button>
+
         <button 
-          className='filter-button' 
+          className='bg-gray-400 mx-[20px] p-2 text-white' 
           onClick={() => {
             const filteredRestaurants = allRestaurants.filter(
               restaurant => restaurant.info?.avgRating >=1
@@ -66,11 +70,12 @@ export const Body = () => {
         >
           Top rated Restaurants
         </button>
+  
       </div>
-      <div className='restro-list-container'>
+      <div className='flex flex-wrap'>
         {filteredRestaurants.map((restaurant) => (
-        //  <Link to='/reasturants/' key={restaurant.info.id}> <RestroCard resData={restaurant.info} /></Link>
-        <Link to={`/restaurants/${restaurant.info.id}`} key={restaurant.info.id}> <RestroCard resData={restaurant.info} /></Link>
+        <Link to={`/restaurants/${restaurant.info.id}`} key={restaurant.info.id}>
+           {restaurant.info.promoted?<ResturantCardPromoted resData={restaurant.info}/>: <RestroCard resData={restaurant.info} />}</Link>
 
         ))}
       </div>

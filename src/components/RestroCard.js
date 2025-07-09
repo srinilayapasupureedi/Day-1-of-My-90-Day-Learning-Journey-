@@ -2,17 +2,28 @@ import { CDN_URL } from "../utils/constants";
 export const RestroCard = (props) => {
   const { resData } = props;
   return (
-    <div className='restro-card'>
+    <div className='m-2 p-4 w-[200px] bg-gray-50 hover:bg-gray-200 shadow-lg rounded-sm'>
       <img
-        className='restro-image'
+        className='rounded-sm mb-[8px]'
         src={`${CDN_URL}${resData.cloudinaryImageId}`}
         alt={resData.name}
       />
-      <h3>{resData.name}</h3>
+      <h3 className="font-bold">{resData.name}</h3>
       <h4>{resData.cuisines?.join(", ") || "N/A"}</h4>
       <h4>{resData.avgRating} ⭐</h4>
       <h4>{resData.costForTwo}</h4>
       <h4>{resData.sla?.slaString}</h4>
     </div>
   );
+};
+export const willPromotedLabel=(RestroCard)=>{
+  return (props)=>{
+    return(
+      <div>
+        <label className="">Promoted</label>
+        <RestroCard {...props}/>
+      </div>
+
+    );
+  };
 };
