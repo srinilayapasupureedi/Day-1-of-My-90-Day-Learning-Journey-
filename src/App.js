@@ -8,6 +8,8 @@ import Contact from './components/Contact';
 import Error from './components/Error';
 import ResturantMenu from './components/ResturantMenu';
 import {lazy,  Suspense} from 'react';
+import UserContext from './utils/UserContext';
+import { useEffect,useState } from 'react';
 
 //food devlivery app
 //step-1 planning before coding
@@ -39,11 +41,17 @@ const About= lazy(() => import('./components/About'));
 
 
 const AppLayout=()=>{
+       const [userName,setUserName]=useState();
+       useEffect(()=>{
+          setUserName("srinilaya")},
+          []);
   return(
+    <UserContext.Provider value={{loginedUser:userName,setUserName}}>
     <div className='app-container'>
       <Header/>
       <Outlet/>
     </div>
+    </UserContext.Provider>
   )
 };
 const appRouter=createBrowserRouter([
