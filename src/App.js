@@ -10,6 +10,9 @@ import ResturantMenu from './components/ResturantMenu';
 import {lazy,  Suspense} from 'react';
 import UserContext from './utils/UserContext';
 import { useEffect,useState } from 'react';
+import { Provider} from 'react-redux';
+import appStore from './utils/appStore';
+import Cart from './components/Cart';
 
 //food devlivery app
 //step-1 planning before coding
@@ -46,12 +49,14 @@ const AppLayout=()=>{
           setUserName("srinilaya")},
           []);
   return(
+    <Provider store={appStore}>
     <UserContext.Provider value={{loginedUser:userName,setUserName}}>
     <div className='app-container'>
       <Header/>
       <Outlet/>
     </div>
     </UserContext.Provider>
+    </Provider>
   )
 };
 const appRouter=createBrowserRouter([
@@ -78,7 +83,11 @@ const appRouter=createBrowserRouter([
         {
           path:"/restaurants/:resId",
           element:<ResturantMenu/>
-        }
+        },
+        {
+          path:"/cart",
+          element:<Cart/>
+        },
     ],
     errorElement:<Error/>
   }
