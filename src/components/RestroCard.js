@@ -5,7 +5,7 @@ export const RestroCard = (props) => {
   const {loginedUser}=useContext(UserContext);
   const { resData } = props;
   return (
-    <div className='m-2 p-4 w-[200px] bg-gray-50 hover:bg-gray-200 shadow-lg rounded-sm'>
+    <div data-testid="res-card" className='m-2 p-4 w-[200px] bg-gray-50 hover:bg-gray-200 shadow-lg rounded-sm'>
       <img
         className='rounded-sm mb-[8px]'
         src={`${CDN_URL}${resData.cloudinaryImageId}`}

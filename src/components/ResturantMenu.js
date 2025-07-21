@@ -23,7 +23,7 @@ const ResturantMenu=()=>{
 
 
   return(
-      <div className="text-center m-4">
+      <div className="text-center m-4" data-testid="food-items">
         <h1 className="font-bold">{name}</h1> 
         <h2>{cuisines.join(",")}-{costForTwo/100}</h2> 
         {categories.map((category,index)=>(<ResturantCategory data={category.card.card}
